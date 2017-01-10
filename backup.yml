@@ -1,0 +1,27 @@
+- hosts: all
+  gather_facts: True
+  serial:
+   - 1
+   - 100%
+  vars:
+   - sftp_enabled: true
+   - docker_group_members: [ubuntu]
+  pre_tasks:
+    - include_vars: group_vars/secrets.yml
+
+    - name: Make sure wheel exists
+      become: yes
+      group:
+        name: wheel
+        state: present
+
+    - name: Add ubuntu user to fuse group
+      become: yes
+      user:
+        name: ubuntu
+        groups: wheel
+        append: yes
+  roles:
+    - { role: dev-sec.os-hardening, become: yes, tags: security }
+    - { role: hutchic.infinit, become: yes, tags: infinit }
+    - { role: angstwad.docker_ubuntu, become: yes, tags: security }

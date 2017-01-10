@@ -1,0 +1,49 @@
+- hosts: all
+  gather_facts: False
+  pre_tasks:
+    - name: Make sure python is installed
+      raw: sudo apt-get update && sudo apt-get -y install python
+
+- hosts: vpc
+  gather_facts: False
+  handlers:
+    - name: Restart ssh
+      service:
+        name: ssh
+        state: restarted
+
+  tasks:
+    - name: Make sure python is installed
+      raw: sudo apt-get update && sudo apt-get -y install python
+
+    - name: Make sure we have a 'wheel' group
+      group:
+        name: wheel
+        state: present
+
+    - name: Allow 'wheel' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+
+    - name: Create ubuntu user
+      user:
+        name: ubuntu
+        group: wheel
+        append: yes
+
+    - name: Add the ssh key to the ubuntu user
+      authorized_key:
+        user: ubuntu
+        state: present
+        key: "{{ lookup('file', 'backupsy.rsa.pub') }}"
+
+    - name: Disallow root SSH access
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: "^PermitRootLogin"
+        line: "PermitRootLogin no"
+        state: present
+      notify: Restart ssh

@@ -1,0 +1,53 @@
+commit da8fac134bb524cef87a551239633a34c63e68b3
+Author: hutchic <colin@hutchic.com>
+Date:   Mon Jan 9 20:37:44 2017 -0500
+
+    fix(host_vars): moved ssh info to encrypted host vars
+
+commit 3db50713aa01d2db30a2f1c5da07dfc7db7ed96d
+Author: hutchic <colin@hutchic.com>
+Date:   Wed Jan 4 13:22:18 2017 -0500
+
+    Published the infinit role to the galaxy
+
+commit 9570dc9d8f1914dc20b62c6ac1367f8c3f2268c9
+Author: hutchic <colin@hutchic.com>
+Date:   Tue Jan 3 21:58:06 2017 -0500
+
+    unified two playbooks into one
+
+commit 81a0d492a3ef793c5e0eaccb06d0ee963143b327
+Author: hutchic <colin@hutchic.com>
+Date:   Tue Jan 3 21:43:42 2017 -0500
+
+    wip commit - unifying two playbooks
+
+commit c3f286fa36187d2fd97b383c4babd6501c66a2cc
+Author: hutchic <colin@hutchic.com>
+Date:   Tue Jan 3 21:27:35 2017 -0500
+
+    wip commit - unifying two playbooks
+
+commit c61819364b7909dbf3a9408bafa29640c36c5fa6
+Author: hutchic <colin@hutchic.com>
+Date:   Tue Jan 3 14:33:22 2017 -0500
+
+    functional infinit cluster
+
+commit de9c6a869f3ca256f19c004c4b2480eaec4e11ff
+Author: hutchic <colin@hutchic.com>
+Date:   Mon Jan 2 13:56:05 2017 -0500
+
+    Added the ability to configure infinit
+
+commit 72bcc9b5e344bce1c2f28f9c8ddfeca76db1dac9
+Author: hutchic <colin@hutchic.com>
+Date:   Mon Jan 2 10:26:10 2017 -0500
+
+    Install infinit.sh
+
+commit 2c53dadf22ee8bf1c8f1dbfb6db84f0936403f70
+Author: hutchic <colin@hutchic.com>
+Date:   Tue Dec 27 20:21:30 2016 -0500
+
+    Initial user creation and setup
