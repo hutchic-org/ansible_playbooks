@@ -1,5 +1,5 @@
 [![unlicense licensed](https://img.shields.io/badge/license-unlicense-blue.svg)](./LICENSE)
-[![libraries.io](https://img.shields.io/librariesio/github/hutchic/ansible_playbooks.svg)
+[![Libraries.io for GitHub](https://img.shields.io/librariesio/github/hutchic/ansible_playbooks.svg)]()
 
 # What
 
