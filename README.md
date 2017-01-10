@@ -1,3 +1,5 @@
+[![unlicense licensed](https://img.shields.io/badge/license-unlicense-blue.svg)](./LICENSE)
+
 # What
 
 Ansible playbooks that control my various computers
