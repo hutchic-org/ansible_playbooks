@@ -15,13 +15,33 @@
         name: wheel
         state: present
 
-    - name: Add ubuntu user to fuse group
+    - name: Add ubuntu and root user to the wheel group
       become: yes
       user:
-        name: ubuntu
+        name: "{{ item }}"
         groups: wheel
         append: yes
+      with_items:
+        - ubuntu
+        - root
+
+    - stat: path=/infinit
+      register: infinit_exists
+
+    - name: Create the infinit directory
+      become: yes
+      file:
+        path: /infinit
+        mode: 0755
+        owner: root
+        group: wheel
+        state: directory
+      when: infinit_exists.stat.exists == False
+
   roles:
     - { role: dev-sec.os-hardening, become: yes, tags: security }
     - { role: hutchic.infinit, become: yes, tags: infinit }
-    - { role: angstwad.docker_ubuntu, become: yes, tags: security }
+
+- hosts: vpc
+  roles:
+    - { role: grimmjow8.crashplan, become: yes }

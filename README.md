@@ -5,16 +5,16 @@
 
 Ansible playbooks that control my various computers
 
-# Adding a new machine
+# Bootstrapping Backup Server
 
 - Setup the SSH key
 
 ```
 export SERVER_IP=REDACTED
-scp id_rsa.rsa.pub root@$SERVER_IP:~/id_rsa.rsa.pub
+scp id_rsa.pub root@$SERVER_IP:~/id_rsa.pub
 ssh root@$SERVER_IP
 mkdir .ssh
-cat id_rsa.rsa.pub >> .ssh/authorized_keys
+cat id_rsa.pub >> .ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 exit
 ```
@@ -24,3 +24,31 @@ exit
 - Use `ansible-encrypt` to encrypt the file
 - Decrypt the private key `ansible-vault decrypt --output - id_rsa.rsa > id_rsa`
 - `make new_server`
+- Update the host_vars file with `ubuntu` as the new `ansible_ssh_username`
+- `make provision_backup`
+
+# Connecting to Crashplan
+
+Copy the auth token
+```
+ssh -i id_rsa ubuntu@$SERVER_IP sudo cat /var/lib/crashplan/.ui_info | awk -F ',' '{print $2}'
+```
+
+Make a backup o fthe local .ui_info
+```
+cp /var/lib/crashplan/.ui_info ~/.ui_info
+```
+
+Edit the local .ui_info
+```
+/var/lib/crashplan/.ui_info
+```
+Change the port to 4200 and replace the existing authentication token with the
+authentication token from the remote computer.
+
+Setup the ssh port forwarding
+```
+ssh -i id_rsa -L 4200:localhost:4243 ubuntu@$SERVER_IP
+```
+
+Run the local Crashplan

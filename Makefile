@@ -9,7 +9,7 @@ new_server:
 	.venv/bin/ansible-playbook -i inventory --limit cattle --private-key id_rsa bootstrap_new_server.yml --ask-vault-pass
 
 new_vpc_server:
-	.venv/bin/ansible-playbook -i inventory.sh --limit vpc --private-key id_rsa -u root bootstrap_new_server.yml --ask-vault-pass
+	.venv/bin/ansible-playbook -i inventory --limit vpc --private-key id_rsa -u root bootstrap_new_server.yml --ask-vault-pass
 
 provision_backup:
 	.venv/bin/ansible-playbook -i inventory --private-key id_rsa backup.yml --ask-vault-pass
