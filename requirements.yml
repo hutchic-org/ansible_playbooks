@@ -1,6 +1,4 @@
-#- src: dev-sec.ssh-hardening
 - src: dev-sec.os-hardening
-#- src: angstwad.docker_ubuntu
-#- src: resmo.ntp
+- src: angstwad.docker_ubuntu
 - src: hutchic.infinit
 - src: grimmjow8.crashplan
