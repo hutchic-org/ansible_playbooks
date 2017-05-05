@@ -20,3 +20,11 @@ ssh:
 clean:
 	rm -rf .venv; \
 	rm -rf galaxy
+
+development_server:
+	ANSIBLE_HOST_KEY_CHECKING=False \
+	ANSIBLE_HOSTS=`pwd`/ec2.py \
+	EC2_INI_PATH=`pwd`/ec2.ini \
+	.venv/bin/ansible-playbook \
+	--private-key $(KEYFILE) \
+	development_environment.yml

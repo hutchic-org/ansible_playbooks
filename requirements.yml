@@ -1,4 +1,10 @@
 - src: dev-sec.os-hardening
-- src: angstwad.docker_ubuntu
 - src: hutchic.infinit
 - src: grimmjow8.crashplan
+- src: vcabourdin.chrome
+- src: geerlingguy.security
+- src: geerlingguy.docker
+- src: geerlingguy.git
+- src: geerlingguy.ntp
+- src: geerlingguy.nfs
+- src: telusdigital.locale
