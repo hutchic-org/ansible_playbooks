@@ -72,7 +72,6 @@
     - { role: geerlingguy.git, become: yes }
     - { role: geerlingguy.nfs, become: yes }
     - { role: geerlingguy.ntp, become: yes }
-    - { role: telusdigital.locale, become: yes }
   post_tasks:
     - name: Install various packages
       become: yes
