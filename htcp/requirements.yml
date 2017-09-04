@@ -1,0 +1,8 @@
+- src: dev-sec.os-hardening
+- src: vcabourdin.chrome
+- src: geerlingguy.security
+- src: geerlingguy.docker
+- src: geerlingguy.ntp
+- src: geerlingguy.nfs
+- src: telusdigital.locale
+- src: jnv.unattended-upgrades
