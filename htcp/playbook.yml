@@ -14,6 +14,14 @@
         - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
         - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
         - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+        - 'deb http://download.videolan.org/pub/debian/stable/ /'
+        - 'deb-src http://download.videolan.org/pub/debian/stable/ /'
+
+    - name: Add videolan repository key
+      become: yes
+      apt_key:
+        url: http://download.videolan.org/pub/debian/videolan-apt.asc
+        state: present
 
     - name: Upgrade via apt
       become: yes
@@ -36,6 +44,30 @@
         groups: docker
         append: yes
 
+    - name: Install steam
+      become: yes
+      apt:
+        deb: http://media.steampowered.com/client/installer/steam.deb
+
+    - name: Create AACS directories
+      file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - /home/hutchic/.config
+        - /home/hutchic/.config/aacs
+
+    - name: Fetch the AACS config file
+      get_url:
+        url: http://vlc-bluray.whoknowsmy.name/files/KEYDB.cfg
+        dest: /home/hutchic/.config/aacs/KEYDB.cfg
+
+    - name: Add the makemkv repository
+      become: yes
+      apt_repository:
+        repo: ppa:heyarje/makemkv-beta
+        state: present
+
     - name: Install various packages
       become: yes
       apt:
@@ -44,6 +76,7 @@
       with_items:
         - git
         - vim
+        - vlc
         - wget
         - curl
         - build-essential
@@ -58,3 +91,11 @@
         - tar
         - gzip
         - ttf-ubuntu-font-family
+        - libdvdcss2
+        - ubuntu-restricted-extras
+        - libdvd-pkg
+        - libaacs0
+        - libbluray-bdj
+        - libbluray1
+        - makemkv-bin
+        - makemkv-oss
