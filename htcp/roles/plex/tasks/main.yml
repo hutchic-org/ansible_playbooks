@@ -1,0 +1,47 @@
+---
+- name: Download the webtools plugin
+  get_url:
+    url: https://github.com/ukdtom/WebTools.bundle/releases/download/2.4.1/WebTools.bundle.zip
+    dest: /home/hutchic/Downloads/webtools.zip
+- name: Creates directory
+  become: yes
+  file:
+    path: /media/plugins
+    mode: 0777
+    state: directory
+- name: Unzip the webtools plugin
+  unarchive:
+    src: /home/hutchic/Downloads/webtools.zip
+    dest: /media/plugins/
+- name: Run the plex docker container
+  docker_container:
+    name: "plex"
+    image: "plexinc/pms-docker:latest"
+    state: "started"
+    restart_policy: "always"
+    volumes:
+      - "/media/plugins:/config/Library/Application\ Support/Plex\ Media\ Server/Plug-ins"
+      - "{{ host_plex_config_path }}:/config"
+      - "{{ host_media_tv_path }}:/data/tvshows"
+      - "{{ host_media_movies_path }}:/data/movies"
+      - "{{ host_media_anime_path }}:/data/anime"
+      - "{{ plex_transcode_path }}:/transcode"
+    ports:
+      - '32400:32400'
+      - '33400:33400'
+      - '3005:3005'
+      - '8324:8324'
+      - '32469:32469'
+      - '1900:1900'
+      - '32410:32410'
+      - '32412:32412'
+      - '32413:32413'
+      - '32414:32414'
+    log_driver: 'syslog'
+    log_opt:
+      tag: "plex"
+    env:
+      TZ: "{{ TZ_TimeZone }}"
+      PLEX_CLAIM: '{{ plex_claim }}'
+      ADVERTISE_IP: '{{ advertise_ip }}'
+      ALLOWED_NETWORKS: '{{ allowed_networks }}'

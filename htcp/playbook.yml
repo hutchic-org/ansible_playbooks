@@ -5,21 +5,6 @@
     security_ssh_password_authentication: yes
     sysctl_config:
       net.ipv4.ip_forward: 1
-    # Variables for use throughout the templates and taks.
-    user_id: 1004
-    group_id: 1004
-    TZ_TimeZone: America/Toronto
-    # Application Ports
-    plex_port: 32400
-    # Plex Docker Creation Variables
-    host_plex_config_path: /media/plexdb
-    host_media_tv_path: /media/tvshows
-    host_media_movies_path: /media/movies
-    host_media_anime_path: /media/anime
-    plex_transcode_path: /media/plexdb/transcode
-    plex_claim: claim-ipPmYWS5BT3WDN1Fk3vN
-    advertise_ip: http://192.168.0.44:32400
-    allowed_networks: 192.168.0.0/24
   pre_tasks:
     - name: Enable multiverse
       become: yes
@@ -35,13 +20,14 @@
       apt:
         upgrade: dist
         update_cache: yes
-#  roles:
-#    - { role: vcabourdin.chrome, become: yes }
-#    - { role: dev-sec.os-hardening, become: yes }
-#    - { role: geerlingguy.docker, become: yes }
-#    - { role: geerlingguy.nfs, become: yes }
-#    - { role: geerlingguy.ntp, become: yes }
-#    - { role: jnv.unattended-upgrades, become: yes }
+  roles:
+    - { role: plex }
+    - { role: vcabourdin.chrome, become: yes }
+    - { role: dev-sec.os-hardening, become: yes }
+    - { role: geerlingguy.docker, become: yes }
+    - { role: geerlingguy.nfs, become: yes }
+    - { role: geerlingguy.ntp, become: yes }
+    - { role: jnv.unattended-upgrades, become: yes }
   post_tasks:
     - name: Add hutchic user to docker group
       become: yes
@@ -72,34 +58,3 @@
         - tar
         - gzip
         - ttf-ubuntu-font-family
-
-    - name: Run the plex docker container
-      docker_container:
-        name: "plex"
-        image: "plexinc/pms-docker:latest"
-        state: "started"
-        restart_policy: "always"
-        volumes:
-        - "{{ host_plex_config_path }}:/config"
-        - "{{ host_media_tv_path }}:/data/tvshows"
-        - "{{ host_media_movies_path }}:/data/movies"
-        - "{{ host_media_anime_path }}:/data/anime"
-        - "{{ plex_transcode_path }}:/transcode"
-        ports:
-        - '32400:32400'
-        - '3005:3005'
-        - '8324:8324'
-        - '32469:32469'
-        - '1900:1900'
-        - '32410:32410'
-        - '32412:32412'
-        - '32413:32413'
-        - '32414:32414'
-        log_driver: 'syslog'
-        log_opt:
-          tag: "plex"
-        env:
-          TZ: "{{ TZ_TimeZone }}"
-          PLEX_CLAIM: '{{ plex_claim }}'
-          ADVERTISE_IP: '{{ advertise_ip }}'
-          ALLOWED_NETWORKS: '{{ allowed_networks }}'
