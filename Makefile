@@ -1,30 +1,11 @@
 .PHONY: setup
 
+development_environment: setup
+	ansible-playbook -i "localhost," playbook.yml --ask-sudo-pass
+
 setup:
-	test -d .venv || virtualenv --always-copy .venv
-	.venv/bin/pip install -r requirements.txt
-	.venv/bin/ansible-galaxy install -p galaxy -f -r requirements.yml
-
-new_server:
-	.venv/bin/ansible-playbook -i inventory --limit cattle --private-key id_rsa bootstrap_new_server.yml --ask-vault-pass
-
-new_vpc_server:
-	.venv/bin/ansible-playbook -i inventory --limit vpc --private-key id_rsa -u root bootstrap_new_server.yml --ask-vault-pass
-
-provision_backup:
-	.venv/bin/ansible-playbook -i inventory --private-key id_rsa backup.yml --ask-vault-pass
-
-ssh:
-	ssh -i id_rsa -o IdentitiesOnly=yes ubuntu@$$SERVER_IP
+	pip install -r requirements.txt
+	test -d galaxy || ansible-galaxy install -p galaxy -f -r requirements.yml
 
 clean:
-	rm -rf .venv; \
 	rm -rf galaxy
-
-development_server:
-	ANSIBLE_HOST_KEY_CHECKING=False \
-	ANSIBLE_HOSTS=`pwd`/ec2.py \
-	EC2_INI_PATH=`pwd`/ec2.ini \
-	.venv/bin/ansible-playbook \
-	--private-key $(KEYFILE) \
-	development_environment.yml

@@ -1,0 +1,98 @@
+- hosts: localhost
+  connection: local
+  gather_facts: true
+  vars:
+    sysctl_rhel_config:
+      kernel.exec-shield: 1
+      net.ipv4.tcp_syncookies: 1
+    git_install_from_source_dependencies:
+      - gcc
+  pre_tasks:
+    - name: Enable repositories
+      become: yes
+      become_user: root
+      apt_repository: repo='{{item}}' update_cache=no
+      with_items:
+        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+        - 'deb http://ppa.launchpad.net/webupd8team/atom/ubuntu {{ansible_distribution_release}} main'
+
+    - name: Upgrade via apt
+      become: yes
+      become_user: root
+      apt:
+        upgrade: dist
+        update_cache: yes
+
+    - name: Touch required file for dev-sec
+      become: yes
+      become_user: root
+      file:
+        path: /etc/security/limits.d/10.hardcore.conf
+        state: touch
+
+  roles:
+    - { role: vcabourdin.chrome, become: yes }
+    - { role: dev-sec.os-hardening, become: yes, become_user: root }
+    - { role: geerlingguy.docker, become: yes }
+    - { role: geerlingguy.git, become: yes }
+    - { role: geerlingguy.nfs, become: yes }
+    - { role: geerlingguy.ntp, become: yes }
+    - { role: jnv.unattended-upgrades, become: yes }
+
+  post_tasks:
+    - name: Add ubuntu user to docker group
+      become: yes
+      user:
+        name: ubuntu
+        groups: docker
+        append: yes
+
+    - name: Install various packages via apt
+      become: yes
+      apt:
+        update_cache: yes
+        name: "{{ item }}"
+      with_items: "{{ apt_things_to_install }}"
+
+    - name: Install various packages via snap
+      become: yes
+      command: snap install "{{ item }}"
+      with_items: "{{ snap_things_to_install }}"
+
+    - name: Setup yubikey u2f
+      become: yes
+      get_url:
+        url: https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules
+        dest: /etc/udev/rules.d/70-u2f.rules
+        checksum: sha1:52fcedb96db1362a5a6bf84e9ce78a20e1354193
+
+    - name: set timezone to America/Toronto
+      timezone:
+        name: America/Toronto
+
+    - name: Download zoom client
+      get_url:
+        url: https://zoom.us/client/latest/zoom_amd64.deb
+        dest: /tmp/zoom.deb
+        checksum: sha1:2e4533f2083563eeb18617e1930fbcb51a62d328
+
+    - name: Install zoom client
+      become: yes
+      apt:
+        deb: /tmp/zoom.deb
+        state: present
+
+    - name: Download keybase
+      get_url:
+        url: https://prerelease.keybase.io/keybase_amd64.deb
+        dest: /tmp/keybase.deb
+        checksum: sha1:e1fd933e4511e6fb4b89afb397d27e141754f927
+
+    - name: Install keybase
+      become: yes
+      apt:
+        deb: /tmp/keybase.deb
+        state: present
