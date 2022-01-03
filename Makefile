@@ -5,8 +5,8 @@ development_environment: setup
 
 setup:
 	sudo pip install -r requirements.txt
+	pip freeze > requirements.txt
 	test -d galaxy || ansible-galaxy install -p galaxy -f -r requirements.yml
-	ansible-galaxy collection install pandemonium1986.k8s_toolbox
 
 clean:
 	rm -rf galaxy

@@ -1,0 +1,16 @@
+---
+name: pip / python testing
+
+on: pull_request
+
+jobs:
+  validate-pip:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.4.0
+      with:
+        fetch-depth: 0
+    
+    - uses: actions/setup-python@v2
+    
+    - run: pip install -r requirements.txt
