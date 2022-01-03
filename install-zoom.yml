@@ -1,3 +1,4 @@
+---
 - name: Download zoom client
   get_url:
     url: https://zoom.us/client/latest/zoom_amd64.deb
