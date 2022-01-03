@@ -1,11 +1,10 @@
 snap_things_to_install:
-  - slack
   - vlc
   - peek
-
 apt_things_to_install:
-  - atom
   - git
+  - gpg
+  - gpg-agent
   - vim
   - wget
   - curl
@@ -27,3 +26,4 @@ apt_things_to_install:
   - yubikey-personalization
   - libusb-1.0-0-dev
   - hopenpgp-tools
+  - jq

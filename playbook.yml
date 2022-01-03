@@ -17,7 +17,6 @@
         - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
         - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
         - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
-        - 'deb http://ppa.launchpad.net/webupd8team/atom/ubuntu {{ansible_distribution_release}} main'
 
     - name: Upgrade via apt
       become: yes
@@ -33,27 +32,61 @@
         path: /etc/security/limits.d/10.hardcore.conf
         state: touch
 
-  roles:
-    - { role: vcabourdin.chrome, become: yes }
-    - { role: dev-sec.os-hardening, become: yes, become_user: root }
-    - { role: geerlingguy.docker, become: yes }
-    - { role: geerlingguy.git, become: yes }
-    - { role: geerlingguy.nfs, become: yes }
-    - { role: geerlingguy.ntp, become: yes }
-    - { role: jnv.unattended-upgrades, become: yes }
+    - name: Install gh-cli
+      include: install-gh-cli.yml
 
-  post_tasks:
-    - name: Add ubuntu user to docker group
+    - name: Check if slack is installed
+      shell: dpkg -l | grep -E '^ii' | grep slack
+      register: slack_installed
+      ignore_errors: yes
+
+    - name: Install slack
+      apt:
+        deb: https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-desktop-4.23.0-amd64.deb
       become: yes
-      user:
-        name: ubuntu
-        groups: docker
-        append: yes
+      when: slack_installed.rc != 0
+
+    - name: Check if vscode is installed
+      shell: dpkg -l | grep -E '^ii' | grep code
+      register: vscode_installed
+      ignore_errors: yes
+
+    - name: Install vscode
+      apt:
+        deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+      become: yes
+      when: vscode_installed.rc != 0
+
+    - name: Check if docker-ce is installed
+      shell: dpkg -l | grep -E '^ii' | grep docker-ce
+      register: docker_installed
+      ignore_errors: yes
+
+    - name: Install docker-ce
+      include: install-docker.yml
+      when: docker_installed.rc != 0
+
+    - name: Check if keybase is installed
+      shell: dpkg -l | grep -E '^ii' | grep keybase
+      register: keybase_installed
+      ignore_errors: yes
+
+    - name: Install keybase
+      include: install-keybase.yml
+      when: keybase_installed.rc != 0
+
+    - name: Check if zoom is installed
+      shell: dpkg -l | grep -E '^ii' | grep zoom
+      register: zoom_installed
+      ignore_errors: yes
+
+    - name: Install zoom
+      include: install-zoom.yml
+      when: zoom_installed.rc != 0
 
     - name: Install various packages via apt
       become: yes
       apt:
-        update_cache: yes
         name: "{{ item }}"
       with_items: "{{ apt_things_to_install }}"
 
@@ -67,32 +100,14 @@
       get_url:
         url: https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules
         dest: /etc/udev/rules.d/70-u2f.rules
-        checksum: sha1:52fcedb96db1362a5a6bf84e9ce78a20e1354193
+        checksum: sha1:8ed233dc60fe89569410907f1b830945853af2bb
 
     - name: set timezone to America/Toronto
       timezone:
         name: America/Toronto
 
-    - name: Download zoom client
-      get_url:
-        url: https://zoom.us/client/latest/zoom_amd64.deb
-        dest: /tmp/zoom.deb
-        checksum: sha1:2e4533f2083563eeb18617e1930fbcb51a62d328
-
-    - name: Install zoom client
-      become: yes
-      apt:
-        deb: /tmp/zoom.deb
-        state: present
-
-    - name: Download keybase
-      get_url:
-        url: https://prerelease.keybase.io/keybase_amd64.deb
-        dest: /tmp/keybase.deb
-        checksum: sha1:e1fd933e4511e6fb4b89afb397d27e141754f927
-
-    - name: Install keybase
-      become: yes
-      apt:
-        deb: /tmp/keybase.deb
-        state: present
+  roles:
+    - { role: vcabourdin.chrome, become: yes }
+    - { role: jnv.unattended-upgrades, become: yes }
+    - { role: geerlingguy.nfs, become: yes }
+    - { role: geerlingguy.ntp, become: yes }

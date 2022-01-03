@@ -1,0 +1,11 @@
+- name: Download keybase
+  get_url:
+    url: https://prerelease.keybase.io/keybase_amd64.deb
+    dest: /tmp/keybase.deb
+    checksum: sha1:58b7096d70d5183156acf32e7207640f0eebdd6a
+
+- name: Install keybase
+  become: yes
+  apt:
+    deb: /tmp/keybase.deb
+    state: present

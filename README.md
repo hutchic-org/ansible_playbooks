@@ -10,9 +10,5 @@ Ansible playbooks that control my various computers
 ```
 mkdir projects
 cd projects
-sudo apt-get update
-sudo apt-get install -y git python-dev virtualenv
-git clone https://github.com/hutchic/ansible_playbooks.git
-cd ansible_playbooks
 make development_environment
 ```

@@ -1,9 +1,6 @@
 - src: dev-sec.os-hardening
-- src: hutchic.infinit
 - src: vcabourdin.chrome
 - src: geerlingguy.security
-- src: geerlingguy.docker
-- src: geerlingguy.git
 - src: geerlingguy.ntp
 - src: geerlingguy.nfs
 - src: jnv.unattended-upgrades

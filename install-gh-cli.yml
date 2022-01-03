@@ -1,0 +1,18 @@
+- name: Add Github apt signing key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: C99B11DEB97541F0
+  become: yes
+
+- name: Add Github Repository
+  become: true
+  apt_repository:
+    repo: "deb https://cli.github.com/packages {{ ansible_distribution_release }} main"
+    state: present
+
+- name: Install gh-cli
+  become: true
+  apt:
+    update_cache: true
+    name: "gh"
+    state: present
