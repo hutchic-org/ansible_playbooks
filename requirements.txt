@@ -1,11 +1,21 @@
 ansible==5.1.0
+ansible-lint==5.3.1
 attrs==21.4.0
 boxsdk==2.14.0
+bracex==2.2.1
 cfgv==3.3.1
+commonmark==0.9.1
 detect-secrets @ git+https://github.com/ibm/detect-secrets.git@bea2ba3d60da167c6d3c946a740caac5798efc1b
+enrich==1.2.6
 identify==2.4.1
 nodeenv==1.6.0
 pre-commit==2.16.0
+Pygments==2.11.1
 requests-toolbelt==0.9.1
+rich==10.16.2
+ruamel.yaml==0.17.20
+ruamel.yaml.clib==0.2.6
+tenacity==8.0.1
 toml==0.10.2
+wcmatch==8.3
 wrapt==1.13.3
