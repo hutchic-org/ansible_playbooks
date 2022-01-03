@@ -1,3 +1,4 @@
+---
 - hosts: localhost
   connection: local
   gather_facts: true
@@ -6,108 +7,108 @@
       kernel.exec-shield: 1
       net.ipv4.tcp_syncookies: 1
     git_install_from_source_dependencies:
-      - gcc
+    - gcc
   pre_tasks:
-    - name: Enable repositories
-      become: yes
-      become_user: root
-      apt_repository: repo='{{item}}' update_cache=no
-      with_items:
-        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
-        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
-        - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
-        - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+  - name: Enable repositories
+    become: yes
+    become_user: root
+    apt_repository: repo='{{item}}' update_cache=no
+    with_items:
+    - deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse
+    - deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse
+    - deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse
+    - deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse
 
-    - name: Upgrade via apt
-      become: yes
-      become_user: root
-      apt:
-        upgrade: dist
-        update_cache: yes
+  - name: Upgrade via apt
+    become: yes
+    become_user: root
+    apt:
+      upgrade: dist
+      update_cache: yes
 
-    - name: Touch required file for dev-sec
-      become: yes
-      become_user: root
-      file:
-        path: /etc/security/limits.d/10.hardcore.conf
-        state: touch
+  - name: Touch required file for dev-sec
+    become: yes
+    become_user: root
+    file:
+      path: /etc/security/limits.d/10.hardcore.conf
+      state: touch
 
-    - name: Install gh-cli
-      include: install-gh-cli.yml
+  - name: Install gh-cli
+    include: install-gh-cli.yml
 
-    - name: Check if slack is installed
-      shell: dpkg -l | grep -E '^ii' | grep slack
-      register: slack_installed
-      ignore_errors: yes
+  - name: Check if slack is installed
+    shell: dpkg -l | grep -E '^ii' | grep slack
+    register: slack_installed
+    ignore_errors: yes
 
-    - name: Install slack
-      apt:
-        deb: https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-desktop-4.23.0-amd64.deb
-      become: yes
-      when: slack_installed.rc != 0
+  - name: Install slack
+    apt:
+      deb: https://downloads.slack-edge.com/releases/linux/4.23.0/prod/x64/slack-desktop-4.23.0-amd64.deb
+    become: yes
+    when: slack_installed.rc != 0
 
-    - name: Check if vscode is installed
-      shell: dpkg -l | grep -E '^ii' | grep code
-      register: vscode_installed
-      ignore_errors: yes
+  - name: Check if vscode is installed
+    shell: dpkg -l | grep -E '^ii' | grep code
+    register: vscode_installed
+    ignore_errors: yes
 
-    - name: Install vscode
-      apt:
-        deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
-      become: yes
-      when: vscode_installed.rc != 0
+  - name: Install vscode
+    apt:
+      deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+    become: yes
+    when: vscode_installed.rc != 0
 
-    - name: Check if docker-ce is installed
-      shell: dpkg -l | grep -E '^ii' | grep docker-ce
-      register: docker_installed
-      ignore_errors: yes
+  - name: Check if docker-ce is installed
+    shell: dpkg -l | grep -E '^ii' | grep docker-ce
+    register: docker_installed
+    ignore_errors: yes
 
-    - name: Install docker-ce
-      include: install-docker.yml
-      when: docker_installed.rc != 0
+  - name: Install docker-ce
+    include: install-docker.yml
+    when: docker_installed.rc != 0
 
-    - name: Check if keybase is installed
-      shell: dpkg -l | grep -E '^ii' | grep keybase
-      register: keybase_installed
-      ignore_errors: yes
+  - name: Check if keybase is installed
+    shell: dpkg -l | grep -E '^ii' | grep keybase
+    register: keybase_installed
+    ignore_errors: yes
 
-    - name: Install keybase
-      include: install-keybase.yml
-      when: keybase_installed.rc != 0
+  - name: Install keybase
+    include: install-keybase.yml
+    when: keybase_installed.rc != 0
 
-    - name: Check if zoom is installed
-      shell: dpkg -l | grep -E '^ii' | grep zoom
-      register: zoom_installed
-      ignore_errors: yes
+  - name: Check if zoom is installed
+    shell: dpkg -l | grep -E '^ii' | grep zoom
+    register: zoom_installed
+    ignore_errors: yes
 
-    - name: Install zoom
-      include: install-zoom.yml
-      when: zoom_installed.rc != 0
+  - name: Install zoom
+    include: install-zoom.yml
+    when: zoom_installed.rc != 0
 
-    - name: Install various packages via apt
-      become: yes
-      apt:
-        name: "{{ item }}"
-      with_items: "{{ apt_things_to_install }}"
+  - name: Install various packages via apt
+    become: yes
+    apt:
+      name: '{{ item }}'
+    with_items: '{{ apt_things_to_install }}'
 
-    - name: Install various packages via snap
-      become: yes
-      command: snap install "{{ item }}"
-      with_items: "{{ snap_things_to_install }}"
+  - name: Install various packages via snap
+    become: yes
+    command: snap install "{{ item }}"
+    with_items: '{{ snap_things_to_install }}'
 
-    - name: Setup yubikey u2f
-      become: yes
-      get_url:
-        url: https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules
-        dest: /etc/udev/rules.d/70-u2f.rules
-        checksum: sha1:8ed233dc60fe89569410907f1b830945853af2bb
+  - name: Setup yubikey u2f
+    become: yes
+    get_url:
+      url: https://raw.githubusercontent.com/Yubico/libu2f-host/master/70-u2f.rules
+      dest: /etc/udev/rules.d/70-u2f.rules
+      checksum: sha1:8ed233dc60fe89569410907f1b830945853af2bb
 
-    - name: set timezone to America/Toronto
-      timezone:
-        name: America/Toronto
+  - name: set timezone to America/Toronto
+    timezone:
+      name: America/Toronto
 
   roles:
-    - { role: vcabourdin.chrome, become: yes }
-    - { role: jnv.unattended-upgrades, become: yes }
-    - { role: geerlingguy.nfs, become: yes }
-    - { role: geerlingguy.ntp, become: yes }
+  - {role: vcabourdin.chrome, become: yes}
+  - {role: jnv.unattended-upgrades, become: yes}
+  - {role: geerlingguy.nfs, become: yes}
+  - {role: geerlingguy.ntp, become: yes}

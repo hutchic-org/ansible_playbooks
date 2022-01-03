@@ -1,29 +1,30 @@
+---
 snap_things_to_install:
-  - vlc
-  - peek
+- vlc
+- peek
 apt_things_to_install:
-  - git
-  - gpg
-  - gpg-agent
-  - vim
-  - wget
-  - curl
-  - build-essential
-  - unzip
-  - nmap
-  - python-setuptools
-  - sshfs
-  - firefox
-  - screen
-  - tar
-  - gzip
-  - ttf-ubuntu-font-family
-  - gnupg2
-  - gnupg-agent
-  - pinentry-curses
-  - scdaemon
-  - pcscd
-  - yubikey-personalization
-  - libusb-1.0-0-dev
-  - hopenpgp-tools
-  - jq
+- git
+- gpg
+- gpg-agent
+- vim
+- wget
+- curl
+- build-essential
+- unzip
+- nmap
+- python-setuptools
+- sshfs
+- firefox
+- screen
+- tar
+- gzip
+- ttf-ubuntu-font-family
+- gnupg2
+- gnupg-agent
+- pinentry-curses
+- scdaemon
+- pcscd
+- yubikey-personalization
+- libusb-1.0-0-dev
+- hopenpgp-tools
+- jq
