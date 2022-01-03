@@ -5,7 +5,7 @@ repos:
   - id: check-hooks-apply
   - id: check-useless-excludes
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v4.0.1
+  rev: v4.1.0
   hooks:
   - id: end-of-file-fixer
   - id: trailing-whitespace
@@ -23,7 +23,7 @@ repos:
   - id: forbid-tabs
   - id: remove-tabs
 - repo: https://github.com/IBM/detect-secrets
-  rev: master
+  rev: 0.13.1+ibm.47.dss
   hooks:
   - id: detect-secrets
     args: [--baseline, .secrets.baseline]
