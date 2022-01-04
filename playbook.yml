@@ -67,6 +67,28 @@
     include: install-docker.yml
     when: docker_installed.rc != 0
 
+  - name: Make sure the docker cli plugin directory exists
+    become: yes
+    ansible.builtin.file:
+      path: /usr/local/lib/docker/cli-plugins
+      state: directory
+      mode: '0755'
+
+  - name: Install docker-compose cli plugin
+    become: yes
+    get_url:
+      url: https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-linux-x86_64
+      dest: /usr/local/lib/docker/cli-plugins/docker-compose
+      mode: '0755'
+
+  - name: Install ngrok
+    become: yes
+    ansible.builtin.unarchive:
+      src: https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.tgz
+      dest: /usr/local/bin
+      remote_src: yes
+      mode: '0755'
+
   - name: Check if keybase is installed
     shell: dpkg -l | grep -E '^ii' | grep keybase
     register: keybase_installed
