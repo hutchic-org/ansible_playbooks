@@ -10,7 +10,7 @@ enrich==1.2.7
 identify==2.4.12
 nodeenv==1.6.0
 pre-commit==2.18.1
-Pygments==2.11.1
+Pygments==2.11.2
 requests-toolbelt==0.9.1
 rich==12.2.0
 ruamel.yaml==0.17.21
