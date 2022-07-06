@@ -2,7 +2,7 @@ ansible==6.0.0
 ansible-lint==6.0.2
 attrs==21.4.0
 boxsdk==3.2.0
-bracex==2.2.1
+bracex==2.3.post1
 cfgv==3.3.1
 commonmark==0.9.1
 detect-secrets @ git+https://github.com/ibm/detect-secrets.git@0ccc25a57be21eb401e0bd37e5c053c20a818208
