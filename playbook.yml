@@ -33,6 +33,11 @@
       path: /etc/security/limits.d/10.hardcore.conf
       state: touch
 
+  - name: Install zsh
+    apt:
+      name: zsh
+    become: yes
+
   - name: Install gh-cli
     include: install-gh-cli.yml
 
@@ -126,6 +131,7 @@
       checksum: sha1:8ed233dc60fe89569410907f1b830945853af2bb
 
   - name: set timezone to America/Toronto
+    become: yes
     timezone:
       name: America/Toronto
 
@@ -134,3 +140,4 @@
   - {role: jnv.unattended-upgrades, become: yes}
   - {role: geerlingguy.nfs, become: yes}
   - {role: geerlingguy.ntp, become: yes}
+  - {role: badpacketsllc.aws_cli, become: yes}

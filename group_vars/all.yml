@@ -18,7 +18,6 @@ apt_things_to_install:
 - screen
 - tar
 - gzip
-- ttf-ubuntu-font-family
 - gnupg2
 - gnupg-agent
 - pinentry-curses
