@@ -9,7 +9,7 @@ detect-secrets @ git+https://github.com/ibm/detect-secrets.git@0ccc25a57be21eb40
 enrich==1.2.7
 identify==2.4.12
 nodeenv==1.6.0
-pre-commit==2.18.1
+pre-commit==2.19.0
 Pygments==2.11.2
 requests-toolbelt==0.9.1
 rich==12.2.0
