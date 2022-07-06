@@ -5,7 +5,7 @@ boxsdk==3.2.0
 bracex==2.2.1
 cfgv==3.3.1
 commonmark==0.9.1
-detect-secrets @ git+https://github.com/ibm/detect-secrets.git@bea2ba3d60da167c6d3c946a740caac5798efc1b
+detect-secrets @ git+https://github.com/ibm/detect-secrets.git@0ccc25a57be21eb401e0bd37e5c053c20a818208
 enrich==1.2.7
 identify==2.4.12
 nodeenv==1.6.0
