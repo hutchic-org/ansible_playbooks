@@ -8,7 +8,7 @@
 - name: Add Github Repository
   become: true
   apt_repository:
-    repo: deb https://cli.github.com/packages {{ ansible_distribution_release }} main
+    repo: deb https://cli.github.com/packages focal main
     state: present
 
 - name: Install gh-cli
