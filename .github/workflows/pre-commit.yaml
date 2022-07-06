@@ -8,6 +8,7 @@ jobs:
   lint-pr-title:
     name: Validate PR titles
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'pull[bot]' }}
     steps:
     - uses: amannn/action-semantic-pull-request@v4
       env:
@@ -16,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3.1.2
+    - uses: actions/setup-python@v4.0.0
       with:
         python-version: '3.8'
     - run: pip install 'virtualenv<20.11.0'
-    - uses: pre-commit/action@v2.0.3
+    - uses: pre-commit/action@v3.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}

@@ -27,8 +27,7 @@ jobs:
     - metadata
 
     # only runs on main branch and only for the template
-    if: ${{ fromJSON(needs.metadata.outputs.repository).is_template }}
-
+    if: ${{ fromJSON(needs.metadata.outputs.repository).is_template }} and ${{ github.actor != 'pull[bot]' }}
     runs-on: ubuntu-latest
 
     steps:
