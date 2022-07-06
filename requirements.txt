@@ -18,4 +18,4 @@ ruamel.yaml.clib==0.2.6
 tenacity==8.0.1
 toml==0.10.2
 wcmatch==8.3
-wrapt==1.14.0
+wrapt==1.14.1
