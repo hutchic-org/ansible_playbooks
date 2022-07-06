@@ -1,7 +1,7 @@
 ansible==5.6.0
 ansible-lint==6.0.2
 attrs==21.4.0
-boxsdk==3.2.0
+boxsdk==3.4.0
 bracex==2.2.1
 cfgv==3.3.1
 commonmark==0.9.1
