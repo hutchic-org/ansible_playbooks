@@ -135,6 +135,9 @@
     timezone:
       name: America/Toronto
 
+  - name: Install chezmoi
+    command: sh -c "$(curl -fsLS chezmoi.io/get)" -- -b $HOME/.local/bin init --apply hutchic
+
   roles:
   - {role: vcabourdin.chrome, become: yes}
   - {role: jnv.unattended-upgrades, become: yes}
