@@ -55,4 +55,5 @@ gpg --export-ssh-key Colin
 git config --global user.signingkey chutchic@gmail.com
 git config --global commit.gpgsign true
 git config --global user.name "Colin Hutchinson"
+git config --global push.default current
 ```
