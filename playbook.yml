@@ -73,17 +73,15 @@
     when: docker_installed.rc != 0
 
   - name: Make sure the docker cli plugin directory exists
-    become: yes
     ansible.builtin.file:
-      path: /usr/local/lib/docker/cli-plugins
+      path: "{{ lookup('env','HOME') }}/.docker/cli-plugins/"
       state: directory
       mode: '0755'
 
   - name: Install docker-compose cli plugin
-    become: yes
     get_url:
       url: https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-linux-x86_64
-      dest: /usr/local/lib/docker/cli-plugins/docker-compose
+      dest: "{{ lookup('env','HOME') }}/.docker/cli-plugins/docker-compose"
       mode: '0755'
 
   - name: Install ngrok
