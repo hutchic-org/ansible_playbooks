@@ -27,7 +27,7 @@ pytest==7.1.2
 python-dateutil==2.8.2
 requests-toolbelt==0.9.1
 resolvelib==0.5.4
-rich==12.4.4
+rich==12.5.1
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
 subprocess-tee==0.3.5
