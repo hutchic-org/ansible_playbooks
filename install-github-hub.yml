@@ -1,0 +1,19 @@
+- name: Create the destination directory
+  file:
+    path: /tmp/hub
+    state: directory
+
+- name: Download github hub
+  ansible.builtin.unarchive:
+    src: https://github.com/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz
+    dest: /tmp/hub
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+
+- name: Move github hub binary
+  become: yes
+  ansible.builtin.copy:
+    src: /tmp/hub/bin/hub
+    dest: /usr/local/bin/hub
+    mode: '0755'
+

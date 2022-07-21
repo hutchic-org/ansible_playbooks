@@ -38,6 +38,9 @@
       name: zsh
     become: yes
 
+  - name: Install github hub
+    include: install-github-hub.yml
+
   - name: Install gh-cli
     include: install-gh-cli.yml
 
