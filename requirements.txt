@@ -1,7 +1,7 @@
 ansible==6.1.0
 ansible-compat==2.2.0
 ansible-core==2.13.2
-ansible-lint==6.3.0
+ansible-lint==6.4.0
 attrs==22.1.0
 boxsdk==3.2.0
 bracex==2.3.post1
