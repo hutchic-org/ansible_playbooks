@@ -38,4 +38,4 @@ tomli==2.0.1
 virtualenv==20.16.5
 wcmatch==8.4
 wrapt==1.14.1
-yamllint==1.27.1
+yamllint==1.28.0
