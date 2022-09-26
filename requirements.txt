@@ -3,7 +3,7 @@ ansible-compat==2.2.0
 ansible-core==2.13.4
 ansible-lint==6.7.0
 attrs==22.1.0
-boxsdk==3.2.0
+boxsdk==3.5.0
 bracex==2.3.post1
 cfgv==3.3.1
 commonmark==0.9.1
