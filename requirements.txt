@@ -1,6 +1,6 @@
 ansible==6.6.0
 ansible-compat==2.2.5
-ansible-core==2.13.5
+ansible-core==2.14.0
 ansible-lint==6.8.7
 attrs==22.1.0
 boxsdk==3.5.0
