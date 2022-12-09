@@ -27,3 +27,4 @@ apt_things_to_install:
 - libusb-1.0-0-dev
 - hopenpgp-tools
 - jq
+- gnome-keyring

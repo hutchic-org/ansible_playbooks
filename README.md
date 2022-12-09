@@ -10,7 +10,7 @@ Ansible playbooks that control my various computers
 ```
 sudo apt update
 sudo apt install python3-pip
-export PATH=/home/coder/.local/bin:$PATH USER=`whoami`
+export PATH=$HOME/.local/bin:$PATH
 make development_environment
 
 # set the zsh default shell
@@ -26,6 +26,7 @@ gpg --allow-secret-key-import --import < /tmp/key.secret
 gpg --list-keys --keyid-format SHORT
 gpg --expert --edit-key SHORTID
 addkey
+8
 S E A Q
 4096
 5y
@@ -56,4 +57,12 @@ git config --global user.signingkey chutchic@gmail.com
 git config --global commit.gpgsign true
 git config --global user.name "Colin Hutchinson"
 git config --global push.default current
+```
+
+# Setup 1password
+
+```
+op account add
+eval $(op signing)
+export GITHUB_TOKEN=$(op read op://private/GITHUB_TOKEN/notes)
 ```

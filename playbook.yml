@@ -9,6 +9,9 @@
     git_install_from_source_dependencies:
     - gcc
   pre_tasks:
+  - name: Install 1password
+    include: install-1password.yml
+
   - name: Enable repositories
     become: yes
     become_user: root
