@@ -18,7 +18,7 @@ jsonschema==4.17.3
 nodeenv==1.7.0
 packaging==22.0
 pathspec==0.9.0
-platformdirs==2.5.2
+platformdirs==2.6.0
 pluggy==1.0.0
 pre-commit==2.19.0
 py==1.11.0
