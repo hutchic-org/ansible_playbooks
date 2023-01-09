@@ -36,6 +36,6 @@ tenacity==8.1.0
 toml==0.10.2
 tomli==2.0.1
 virtualenv==20.17.1
-wcmatch==8.4
+wcmatch==8.4.1
 wrapt==1.14.1
 yamllint==1.28.0
