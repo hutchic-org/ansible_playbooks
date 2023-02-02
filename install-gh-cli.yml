@@ -2,7 +2,7 @@
 - name: Add Github apt signing key
   ansible.builtin.apt_key:
     keyserver: keyserver.ubuntu.com
-    id: C99B11DEB97541F0
+    id: 23F3D4EA75716059
   become: yes
 
 - name: Add Github Repository

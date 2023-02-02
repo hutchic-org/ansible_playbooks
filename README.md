@@ -18,6 +18,9 @@ chsh -s $(which zsh) # might work
 sudo vi /etc/passwd # horrible alternative
 
 # setup keybase
+
+https://gist.github.com/mcattarinussi/834fc4b641ff4572018d0c665e5a94d3
+
 export GPG_TTY=$(tty)
 keybase login
 keybase pgp export -q=EF080FC8D67F84BC | gpg --import
