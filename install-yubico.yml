@@ -1,0 +1,18 @@
+---
+- name: Add Yubico apt signing key
+  become: yes
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 32CBA1A9
+
+- name: Add Yubico repository
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:yubico/stable
+
+- name: Install yubico-packages
+  become: true
+  apt:
+    update_cache: true
+    name: libpam-yubico, libyubikey-udev, libyubikey0, yubikey-manager, yubikey-personalization, yubioath-desktop
+    state: present

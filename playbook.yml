@@ -108,6 +108,15 @@
     include: install-keybase.yml
     when: keybase_installed.rc != 0
 
+  - name: Check if yubico is installed
+    shell: dpkg -l | grep -q '[y]ubi'
+    register: yubico_installed
+    ignore_errors: yes
+
+  - name: Install yubico
+    include: install-yubico.yml
+    when: yubico_installed.rc != 0
+
   - name: Check if zoom is installed
     shell: dpkg -l | grep -E '^ii' | grep zoom
     register: zoom_installed

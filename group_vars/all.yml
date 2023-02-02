@@ -19,9 +19,10 @@ apt_things_to_install:
 - gnupg-agent
 - pinentry-curses
 - scdaemon
-- pcscd
-- yubikey-personalization
 - libusb-1.0-0-dev
 - hopenpgp-tools
 - jq
 - gnome-keyring
+- libpam-u2f
+- pcscd
+- gnome-screenshot
