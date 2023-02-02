@@ -1,7 +1,4 @@
 ---
-snap_things_to_install:
-- vlc
-- peek
 apt_things_to_install:
 - git
 - gpg
