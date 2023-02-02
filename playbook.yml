@@ -123,6 +123,11 @@
       name: '{{ item }}'
     with_items: '{{ apt_things_to_install }}'
 
+  - name: Install various packages via snap
+    become: yes
+    command: snap install "{{ item }}"
+    with_items: '{{ snap_things_to_install }}'
+
   - name: Setup yubikey u2f
     become: yes
     get_url:
