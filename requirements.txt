@@ -24,7 +24,7 @@ markdown-it-py==2.1.0
 mdurl==0.1.2
 mypy-extensions==1.0.0
 nodeenv==1.7.0
-packaging==22.0
+packaging==23.0
 pathspec==0.11.0
 platformdirs==2.6.2
 pluggy==1.0.0
