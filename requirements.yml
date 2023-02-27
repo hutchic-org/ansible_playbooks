@@ -6,3 +6,4 @@
 - src: geerlingguy.nfs
 - src: jnv.unattended-upgrades
 - src: badpacketsllc.aws_cli
+- src: artis3n.tailscale
