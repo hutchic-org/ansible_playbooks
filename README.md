@@ -11,7 +11,9 @@ Ansible playbooks that control my various computers
 sudo apt update
 sudo apt install python3-pip
 export PATH=$HOME/.local/bin:$PATH
-make development_environment
+USER=ubuntu make development_environment
+
+sudo tailscale up
 
 # set the zsh default shell
 chsh -s $(which zsh) # might work

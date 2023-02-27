@@ -12,20 +12,6 @@
   - name: Install 1password
     include: install-1password.yml
 
-  - name: Enable repositories
-    become: yes
-    become_user: root
-    apt_repository: repo='{{item}}' update_cache=no
-    with_items:
-    - deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse
-    - deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse
-    - deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse
-    - deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse
-    - deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} universe
-    - deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} universe
-    - deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates universe
-    - deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates universe
-
   - name: Upgrade via apt
     become: yes
     become_user: root
@@ -150,3 +136,4 @@
   - {role: geerlingguy.nfs, become: yes}
   - {role: geerlingguy.ntp, become: yes}
   - {role: badpacketsllc.aws_cli, become: yes}
+  - {role: artis3n.tailscale, tailscale_up_skip: true, become: yes}
