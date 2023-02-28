@@ -9,6 +9,12 @@
     git_install_from_source_dependencies:
     - gcc
   pre_tasks:
+  - name: import ssh authorized key
+    ansible.posix.authorized_key:
+      user: "ubuntu"
+      state: present
+      key: "{{ lookup('url', 'https://hutchic.keybase.pub/id_rsa.pub', split_lines=False) }}"
+
   - name: Install 1password
     include: install-1password.yml
 
@@ -137,3 +143,4 @@
   - {role: geerlingguy.ntp, become: yes}
   - {role: badpacketsllc.aws_cli, become: yes}
   - {role: artis3n.tailscale, tailscale_up_skip: true, become: yes}
+  - {role: arillso.sshd, become: yes}
