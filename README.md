@@ -64,6 +64,10 @@ git config --global user.name "Colin Hutchinson"
 git config --global push.default current
 ```
 
+# Setup ssh private key
+
+https://security.stackexchange.com/a/9635
+
 # Setup 1password
 
 ```
