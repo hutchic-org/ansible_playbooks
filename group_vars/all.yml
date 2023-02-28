@@ -26,3 +26,5 @@ apt_things_to_install:
 - libpam-u2f
 - pcscd
 - gnome-screenshot
+- monkeysphere
+- openssh-server
