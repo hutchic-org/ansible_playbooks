@@ -8,7 +8,7 @@ boxsdk==3.6.2
 bracex==2.3.post1
 certifi==2022.12.7
 cfgv==3.3.1
-charset-normalizer==3.0.1
+charset-normalizer==3.1.0
 commonmark==0.9.1
 detect-secrets @ git+https://github.com/ibm/detect-secrets.git@0ccc25a57be21eb401e0bd37e5c053c20a818208
 distlib==0.3.6
