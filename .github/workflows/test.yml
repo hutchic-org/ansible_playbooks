@@ -11,6 +11,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: actions/setup-python@v4.5.0
+    - uses: actions/setup-python@v4.6.0
 
     - run: pip install -r requirements.txt
