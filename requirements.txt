@@ -4,7 +4,7 @@ ansible-core==2.14.5
 ansible-lint==6.14.2
 attrs==23.1.0
 black==23.3.0
-boxsdk==3.7.0
+boxsdk==3.7.1
 bracex==2.3.post1
 certifi==2022.12.7
 cfgv==3.3.1
