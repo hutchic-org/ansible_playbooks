@@ -9,14 +9,14 @@
     git_install_from_source_dependencies:
     - gcc
   pre_tasks:
-  - name: import ssh authorized key
-    ansible.posix.authorized_key:
-      user: "ubuntu"
-      state: present
-      key: "{{ lookup('url', 'https://hutchic.keybase.pub/id_rsa.pub', split_lines=False) }}"
+  # - name: import ssh authorized key
+  #   ansible.posix.authorized_key:
+  #     user: "hutchic"
+  #     state: present
+  #     key: "{{ lookup('url', 'https://keybase.io/hutchic/pgp_keys.asc?fingerprint=2456905d58033cb18166454aef080fc8d67f84bc', split_lines=False) }}"
 
-  - name: Install 1password
-    include: install-1password.yml
+  # - name: Install 1password
+  #   include: install-1password.yml
 
   - name: Upgrade via apt
     become: yes
