@@ -9,7 +9,7 @@ Ansible playbooks that control my various computers
 
 ```
 sudo apt update
-sudo apt install python3-pip
+sudo apt install python3-pip python3.11-venv
 export PATH=$HOME/.local/bin:$PATH
 USER=ubuntu make development_environment
 
@@ -62,6 +62,7 @@ git config --global user.signingkey chutchic@gmail.com
 git config --global commit.gpgsign true
 git config --global user.name "Colin Hutchinson"
 git config --global push.default current
+git config --global init.defaultBranch main
 ```
 
 # Setup ssh private key
