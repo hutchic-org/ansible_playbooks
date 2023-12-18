@@ -46,7 +46,7 @@ referencing==0.32.0
 requests==2.31.0
 requests-toolbelt==0.10.1
 resolvelib==0.5.4
-rich==13.3.4
+rich==13.7.0
 rpds-py==0.13.2
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.7
