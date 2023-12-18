@@ -6,7 +6,7 @@ attrs==23.1.0
 black==23.3.0
 boxsdk==3.7.1
 bracex==2.3.post1
-certifi==2023.7.22
+certifi==2023.11.17
 cffi==1.16.0
 cfgv==3.4.0
 charset-normalizer==3.1.0
