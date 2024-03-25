@@ -8,3 +8,4 @@
 - src: badpacketsllc.aws_cli
 - src: artis3n.tailscale
 - src: arillso.sshd
+- src: diodonfrost.terraform

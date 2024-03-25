@@ -10,6 +10,9 @@ PIP := $(VENV)/bin/pip
 development_environment: setup
 	ansible-playbook -i "localhost," playbook.yml --ask-become-pass
 
+ec2: setup
+	ansible-playbook -i "localhost," ec2.yml --ask-become-pass
+
 setup: $(VENV)/bin/activate
 	$(PIP) install -r requirements.txt
 	$(PIP) freeze > requirements.txt

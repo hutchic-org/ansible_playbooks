@@ -3,16 +3,13 @@
   connection: local
   gather_facts: true
   vars:
+    AZ_DIST: "{{ ansible_lsb.codename }}"
     sysctl_rhel_config:
       kernel.exec-shield: 1
       net.ipv4.tcp_syncookies: 1
     git_install_from_source_dependencies:
     - gcc
   pre_tasks:
-
-  # - name: Install 1password
-  #   include: install-1password.yml
-
   - name: Upgrade via apt
     become: yes
     become_user: root
@@ -20,12 +17,22 @@
       upgrade: dist
       update_cache: yes
 
-  - name: Touch required file for dev-sec
+  - name: Install azure cli
     become: yes
     become_user: root
-    file:
-      path: /etc/security/limits.d/10.hardcore.conf
-      state: touch
+    include: install-azure-cli.yml
+
+  - name: Install Steampipe
+    become: yes
+    become_user: root
+    ansible.builtin.shell: |
+      /bin/sh -c "$(curl -fsSL https://steampipe.io/install/steampipe.sh)"
+
+  - name: Install Powerpipe
+    become: yes
+    become_user: root
+    ansible.builtin.shell: |
+      /bin/sh -c "$(curl -fsSL https://powerpipe.io/install/powerpipe.sh)"
 
   - name: Install zsh
     apt:
@@ -33,29 +40,9 @@
     become: yes
 
   - name: Install gh-cli
+    become: yes
+    become_user: root
     include: install-gh-cli.yml
-
-  - name: Check if slack is installed
-    shell: dpkg -l | grep -E '^ii' | grep slack
-    register: slack_installed
-    ignore_errors: yes
-
-  - name: Install slack
-    apt:
-      deb: https://downloads.slack-edge.com/releases/linux/4.29.149/prod/x64/slack-desktop-4.29.149-amd64.deb
-    become: yes
-    when: slack_installed.rc != 0
-
-  - name: Check if vscode is installed
-    shell: dpkg -l | grep -E '^ii' | grep code
-    register: vscode_installed
-    ignore_errors: yes
-
-  - name: Install vscode
-    apt:
-      deb: https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
-    become: yes
-    when: vscode_installed.rc != 0
 
   - name: Check if docker-ce is installed
     shell: dpkg -l | grep -E '^ii' | grep docker-ce
@@ -95,24 +82,6 @@
     include: install-keybase.yml
     when: keybase_installed.rc != 0
 
-  - name: Check if yubico is installed
-    shell: dpkg -l | grep -q '[y]ubi'
-    register: yubico_installed
-    ignore_errors: yes
-
-  - name: Install yubico
-    include: install-yubico.yml
-    when: yubico_installed.rc != 0
-
-  - name: Check if zoom is installed
-    shell: dpkg -l | grep -E '^ii' | grep zoom
-    register: zoom_installed
-    ignore_errors: yes
-
-  - name: Install zoom
-    include: install-zoom.yml
-    when: zoom_installed.rc != 0
-
   - name: Install various packages via apt
     become: yes
     apt:
@@ -132,10 +101,8 @@
       name: America/Toronto
 
   roles:
-  - {role: vcabourdin.chrome, become: yes}
   - {role: jnv.unattended-upgrades, become: yes}
   - {role: geerlingguy.nfs, become: yes}
   - {role: geerlingguy.ntp, become: yes}
   - {role: badpacketsllc.aws_cli, become: yes}
-  - {role: artis3n.tailscale, tailscale_up_skip: true, become: yes}
-  - {role: arillso.sshd, become: yes}
+  - {role: diodonfrost.terraform, become: yes}

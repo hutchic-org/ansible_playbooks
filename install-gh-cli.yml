@@ -1,19 +1,18 @@
----
-- name: Add Github apt signing key
-  ansible.builtin.apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: 23F3D4EA75716059
-  become: yes
-
-- name: Add Github Repository
-  become: true
-  apt_repository:
-    repo: deb https://cli.github.com/packages focal main
+- name: Download GitHub CLI GPG key
+  ansible.builtin.get_url:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    dest: /usr/share/keyrings/githubcli-archive-keyring.gpg
+    mode: '0644'
+    
+- name: Add GitHub CLI Repository
+  ansible.builtin.lineinfile:
+    path: /etc/apt/sources.list.d/github-cli.list
+    line: "deb [signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages focal main"
+    create: yes
     state: present
 
-- name: Install gh-cli
-  become: true
-  apt:
+- name: Install GitHub CLI
+  ansible.builtin.apt:
     update_cache: true
     name: gh
     state: present

@@ -3,7 +3,7 @@
   get_url:
     url: https://prerelease.keybase.io/keybase_amd64.deb
     dest: /tmp/keybase.deb
-    checksum: sha1:3936af58132c8012ceccac12ae00fe8ea06eacd3
+    checksum: sha1:86cf860ad07cb3b70cf9a020151df802145f3334
 
 - name: Install keybase
   become: yes
